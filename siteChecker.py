@@ -33,10 +33,10 @@ def searcherAndChecker(query):
     NumberOfSites = len(urls)  # get the nymber of urls
     counter = 0
     while counter < NumberOfSites:  # loop to go through all the urls and scan them
-        scanParams = {'apikey': 'xxxxxxxx',
+        scanParams = {'apikey': '',
                       'url': str(urls[counter])}
         scanResponse = requests.post('https://www.virustotal.com/vtapi/v2/url/scan', data=scanParams)
-        reportParams = {'apikey': 'xxxxxxx',
+        reportParams = {'apikey': '',
                         'resource': str(urls[counter])}
         reportResponse = requests.post('https://www.virustotal.com/vtapi/v2/url/report', params=reportParams)
         try:  # trying to translate response to json
@@ -46,7 +46,6 @@ def searcherAndChecker(query):
                 print("the site " + str(urls[counter]) + "was detected by one of the scanners to have a virsus")
                 f = open('links.txt', 'a')
                 f.write(str(urls[counter]))
-				f.write('\n')
                 f.close()
             counter += 1
         except:  # request lib failed to translate response to json move to the next
@@ -62,12 +61,13 @@ while currentChar < 100:
         searchStr[currentChar] = letter
         stl = ''.join(searchStr)
         searcherAndChecker(stl) #search through alphabet at current index of query string
+    searchStr[currentChar] = 'a'
     currentChar = 0
     while currentChar < len(searchStr) and len(searchStr) > 1:
         for letter in istring:
             searchStr[currentChar] = letter
-            st1 = ''.join(searchStr)
-            searcherAndChecker(st1) #go back to the beginning of query string and search through
+            stl = ''.join(searchStr)
+            searcherAndChecker(stl) #go back to the beginning of query string and search through
             # every letter of alphabet
+        searchStr[currentChar] = 'a'
         currentChar += 1
-    currentChar += 1
