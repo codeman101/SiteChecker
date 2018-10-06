@@ -4,6 +4,30 @@ import json
 import requests
 import string as  s
 
+
+#--------------------------------------------------------------------------------------------------
+# Name: searcherAndChecker
+# 
+# 
+# Arguments:
+# query: string to pass to DuckDuckGo API as a search query
+#
+# 
+#
+# About: Takes search query and passes it to DuckDuckgo API then get search resuts and passes them to
+# VirusTotal's API. If one of the search results was detected by virustotal to have a virus then a message is 
+# printed to the user containing the URL of the infected site.
+# 
+# code below the function body:
+# Specific to this version of the program I created a type of generate brute force like for the search queries
+# the generator starts with one character goes through the entire alphabet with that one character both upper and
+# lower case then adds another character to the list. The process repeats for that character and then goes back
+# to the pervious characters to rotate them through the alphabet with the new character at the end. For the list
+# to be a search query it is converted into a string and passed to the searcherAndChecker function.
+# The entire process stated above is repeated until the list grows to be 100 characters.
+# 
+#--------------------------------------------------------------------------------------------------
+
 def searcherAndChecker(query):
     obj = urlopen('https://api.duckduckgo.com/?q=' + str(query) + '&format=json&pretty=1')  # search query
     bytes = obj.read()
